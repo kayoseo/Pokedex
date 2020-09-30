@@ -1,9 +1,37 @@
 <template src="./HomeComponent.html"></template>
 <script>
+import Axios from "axios";
+/* import {ServicePokeApi} from "../services/pokeapi" */
+
 export default {
   name: "HomeComponent",
+  mounted() {
+   /* const _servicePokemon=new ServicePokeApi();
+      _servicePokemon.getPokemonList();  */
+     this.getPokemonList(); 
+  },
   data() {
     return {};
+  },
+  methods: {
+    getPokemonList() {
+      Axios.get("https://pokeapi.co/api/v2/pokemon")
+        .then((res) => {
+          console.log("lista de pokemon", res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getPokemon(name) {
+      Axios.get("https://pokeapi.co/api/v2/pokemon/" + name)
+        .then((res) => {
+          console.log("lista de pokemon", res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
@@ -17,9 +45,13 @@ height: 700px; */
   background: #f9f9f9;
 }
 
+.content {
+  width: 570px !important;
+}
 #title {
+  width: 570px !important;
   position: absolute;
-  width: 570px;
+
   height: 31px;
   left: 291px;
   top: 418px;
@@ -36,8 +68,8 @@ height: 700px; */
   color: #353535;
 }
 p {
+  width: 570px !important;
   position: absolute;
-  width: 570px;
   height: 54px;
   left: 291px;
   top: 479px;
@@ -53,42 +85,54 @@ p {
 
   color: #5e5e5e;
 }
-button{
- /* Btn/Normal */
+.btn-started {
+  /* Btn/Normal */
 
+  /* Auto Layout */
 
-/* Auto Layout */
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  padding: 11px 0px 0px 20px !important;
 
-display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding: 11px 0px 0px 20px;
+  position: absolute !important;
+  width: 131px !important;
+  height: 44px !important;
+  left: 511px !important;
+  top: 583px !important;
 
-position: absolute;
-width: 131px;
-height: 44px;
-left: 511px;
-top: 583px;
+  background: #f22539 !important;
+  border-radius: 60px !important;
 
-background: #F22539;
-border-radius: 60px;
+  /* Get started */
 
-/* Get started */
+  font-family: Lato !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  /* identical to box height */
 
+  color: #ffffff !important;
+}
 
+.pikachu {
+  position: absolute;
+  width: 325px;
+  height: 288px;
+  left: 414px;
+  top: 70px;
+}
 
+.elipsePikachu {
+  /* Ellipse 10 */
+  position: absolute;
+  width: 206px;
+  height: 206px;
+  left: 463px;
+  top: 139px;
 
-font-family: Lato;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 22px;
-/* identical to box height */
-
-
-color: #FFFFFF;
-
-
-
+  /* background: #F22539;
+border: 2px solid #000000; */
 }
 </style>
