@@ -1,4 +1,4 @@
-# aprendiendo-vue
+# pokedex
 
 ## Project setup
 ```

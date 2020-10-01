@@ -5,11 +5,13 @@
       rel="stylesheet"
     />
     <link
-      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css"
       rel="stylesheet"
     />
     <body>
-      <router-view></router-view>
+      <div class="center">
+        <router-view></router-view>
+      </div>
     </body>
   </div>
 </template>
@@ -22,16 +24,8 @@ export default {
 </script>
 
 <style>
-body {
-  text-align: center;
-  margin: 0px;
-  padding: 0px;
-
-  /*FUENTES*/
-  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: antialiased;
+.center {
+  width: 75%;
+  margin: 0px auto;
 }
 </style>
