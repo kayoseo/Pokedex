@@ -1,0 +1,78 @@
+<div id="list-component" style="max-width:570px">
+    <img v-if="!pokemons" src="../../assets/images/Loader.png" alt="loading">
+    <div v-if="!emptyList">
+        <p class="Uh-oh">Uh-oh!</p>
+        <p class="sub-header"> You look lost on your journey!</p>
+    </div>
+
+    <!-- <div class="list">
+        <div>
+            <v-data-table :headers="headers" :items="pokemons.results" item-key="name" class="elevation-1"
+                :search="search" :custom-filter="filterOnlyCapsText">
+                <template v-slot:item="row">
+                    <tr>
+                        <td>{{row.item.name}}</td>
+                        <td>
+
+
+                            <v-icon mdi-spin @click="onButtonClick(row.item)">mdi-star-outline</v-icon>
+
+                        </td>
+                    </tr>
+                </template>
+
+
+
+
+
+            </v-data-table>
+        </div>
+    </div> -->
+    <v-toolbar>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
+        </v-text-field>
+    </v-toolbar>
+    <v-card class="mx-auto" max-width="570">
+
+
+
+
+        <v-list two-line>
+            <v-list-item-group>
+                <template v-for="(item, index) in visiblePages">
+                    <v-list-item :key="item.name">
+                        <template>
+                            <v-list-item-content>
+                                <v-list-item-title v-text="item.name"></v-list-item-title>
+
+
+                            </v-list-item-content>
+
+                            <v-list-item-action>
+
+
+                                <v-icon v-if="!active" color="#BFBFBF">
+                                    mdi-star-outline
+                                </v-icon>
+
+                                <v-icon v-else color="#ECA539">
+                                    mdi-star
+                                </v-icon>
+                            </v-list-item-action>
+                        </template>
+                    </v-list-item>
+
+
+                </template>
+
+            </v-list-item-group>
+
+        </v-list>
+
+        <div class="text-center">
+            <v-pagination v-model="page" :length="Math.ceil(pokemons.length/perPage)" circle></v-pagination>
+        </div>
+    </v-card>
+
+
+</div>
