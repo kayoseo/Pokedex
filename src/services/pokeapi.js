@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-export default class ServicePokeApi {
+class ServicePokeApi {
    constructor()
    {
        
@@ -8,7 +8,8 @@ export default class ServicePokeApi {
     getPokemonList() {
         Axios.get("https://pokeapi.co/api/v2/pokemon").
             then(res => {
-                console.log("lista de pokemon", res);
+                console.log(res);
+                console.log("Entro");
             }).catch(error => {
                 console.log(error);
             });
@@ -22,4 +23,4 @@ export default class ServicePokeApi {
             });
     }
 }
-
+export default ServicePokeApi

@@ -1,6 +1,7 @@
 <template src="./ListComponent.html"></template>
 <script>
 import Axios from "axios";
+import ModalComponent from "../ModalComponent/ModalComponent"
 export default {
   name: "ListComponent",
   mounted() {
@@ -14,6 +15,10 @@ export default {
       emptyList: true,
       page: 1,
       perPage: 10,
+      dialog: false,
+      active:'',
+      selectPokemon:''
+
     };
   },
   computed: {
@@ -23,6 +28,11 @@ export default {
         this.page * this.perPage
       );
     },
+  },
+  filters:{
+ upperFirst: function(value){
+return value.replace(/^\w/, (c) => c.toUpperCase());
+ }
   },
   methods: {
     getPokemonList() {
@@ -52,7 +62,19 @@ export default {
         value.toString().toLocaleUpperCase().indexOf(search) !== -1
       );
     },
+    openDialog(name){
+        this.selectPokemon=name;
+        this.dialog=true;
+        
+    },
+    closeDialog(close){
+        console.log(close);
+        this.dialog=false;
+    }
   },
+  components:{
+      ModalComponent
+  }
 };
 </script>
 <style src="./ListComponent.css">

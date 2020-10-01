@@ -7,8 +7,6 @@
 
 .Uh-oh{
 /* Uh-oh! */
-
-
 position: absolute;
 width: 570px;
 height: 43px;
@@ -59,5 +57,24 @@ th{
    /*  font-family: Lato !important;
     font-style: normal !important; */
     font-weight: 500 !important;
+    font-size: 22px;
+line-height: 26px;
+color: #353535;
     background: #FFFFFF !important;
+}
+
+.v-dialog__container {
+    display: unset; 
+}
+/* Evitar que se cree un espacio en blanco */
+v-app{
+    width: 0% !important;
+    height: 0% !important;
+}
+
+.v-list-item:hover{
+    cursor: default
+}
+.v-list-item__title:hover{
+    cursor: pointer
 }

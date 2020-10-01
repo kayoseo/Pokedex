@@ -1,4 +1,6 @@
 <div id="list-component" style="max-width:570px">
+    <ModalComponent v-if="dialog" dialog="dialog" :selectPokemon="selectPokemon" v-on:close="closeDialog">
+    </ModalComponent>
     <img v-if="!pokemons" src="../../assets/images/Loader.png" alt="loading">
     <div v-if="!emptyList">
         <p class="Uh-oh">Uh-oh!</p>
@@ -42,8 +44,12 @@
                 <template v-for="(item, index) in visiblePages">
                     <v-list-item :key="item.name">
                         <template>
+
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.name"></v-list-item-title>
+                                <v-list-item-title v-on:click="openDialog(item.name)" >
+                                    <!-- Convierto el primer Caracter en mayuscular -->
+                                {{item.name | upperFirst}}
+                                </v-list-item-title>
 
 
                             </v-list-item-content>
@@ -73,6 +79,7 @@
             <v-pagination v-model="page" :length="Math.ceil(pokemons.length/perPage)" circle></v-pagination>
         </div>
     </v-card>
+
 
 
 </div>
