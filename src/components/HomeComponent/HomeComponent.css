@@ -14,7 +14,6 @@
 .title {
   position: inherit;
   height: 31px !important;
-  margin-top: 100px !important;
   font-family: Lato !important;
   font-style: normal !important;
   font-weight: 700 !important;
@@ -55,14 +54,19 @@
   color: #FFFFFF;
   background: #f22539 !important;
   border-radius: 60px !important;
-  margin-top: 61px !important;
+  margin-top: 51px !important;
 }
+
+.btn-started:hover{
+  background: #C00E20 !important;
+}
+
 
 .pikachu {
   position: relative;
-  width: 325px;
-  height: 288px;
-  top: 70px;
+  width: 250px;
+  height: 250px;
+ 
 }
 
 .elipsePikachu {

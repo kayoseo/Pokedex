@@ -154,6 +154,10 @@ p {
 
   color: #ffffff !important;
 }
+
+.btn-share:hover{
+   background: #C00E20 !important;
+}
 .v-card__actions {
   padding: 0px 30px 20px 20px !important;
 }
