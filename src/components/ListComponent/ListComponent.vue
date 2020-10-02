@@ -28,19 +28,16 @@ export default {
       favorites: [],
       viewAll: true,
       dataList: [],
-      loading:false
+      loading: false,
     };
   },
   computed: {
     visiblePages() {
-    
-      return this.dataList.filter(data => {
-        return data.name.toLowerCase().includes(this.search.toLowerCase())
-      }).slice(
-        (this.page - 1) * this.perPage,
-        this.page * this.perPage
-      );
-     
+      return this.dataList
+        .filter((data) => {
+          return data.name.toLowerCase().includes(this.search.toLowerCase());
+        })
+        .slice((this.page - 1) * this.perPage, this.page * this.perPage);
     },
   },
   filters: {
@@ -50,12 +47,12 @@ export default {
   },
   methods: {
     getPokemonList() {
-      this.loading=true;
+      this.loading = true;
       Axios.get("https://pokeapi.co/api/v2/pokemon")
         .then((res) => {
           this.pokemons = res.data.results;
           this.dataList = this.pokemons;
-          this.loading=false;
+          this.loading = false;
         })
         .catch((error) => {
           console.log(error);
@@ -125,16 +122,24 @@ export default {
     },
 
     changeToAll() {
+      //Limpiar campo de busqueda al cambiar de vista
+      this.search = "";
+
       //cambio la clase de los botones de ALL y Favorite
       this.viewAll = true;
+
       this.dataList = this.pokemons;
-      this.visiblePages();
+
+      /* this.visiblePages(); */
     },
     changeToFavorite() {
+      //Limpiar campo de busqueda al cambiar de vista
+      this.search = "";
+
       //cambio la clase de los botones de ALL y Favorite
       this.viewAll = false;
       this.dataList = this.favorites;
-      this.visiblePages();
+      /* this.visiblePages(); */
     },
   },
   components: {

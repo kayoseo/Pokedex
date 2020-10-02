@@ -7,9 +7,15 @@
   text-align: center !important;
 }
 
-.content {
-  width: 570px !important;
+/* Imagen pikachu */
+
+.pikachu {
+  position: relative;
+  width: 250px;
+  height: 250px;
 }
+
+/* Welcome to Pokedex */
 
 .title {
   position: inherit;
@@ -22,6 +28,10 @@
   text-align: center !important;
   color: #353535;
 }
+
+/* The digital encyclopedia created by
+ Professor Oak is an invaluable tool 
+ to Trainers in the Pokémon world. */
 
 .subHeader {
   width: 570px !important;
@@ -38,6 +48,8 @@
   text-align: center !important;
   color: #5e5e5e !important;
 }
+
+/* Boton de rediccion a lista de pokemon */
 
 .btn-started {
   /* Get started */
@@ -57,26 +69,12 @@
   margin-top: 51px !important;
 }
 
-.btn-started:hover{
+/* Boton de rediccion al "presionarlo" */
+.btn-started:hover {
   background: #C00E20 !important;
 }
 
-
-.pikachu {
-  position: relative;
-  width: 250px;
-  height: 250px;
- 
-}
-
-.elipsePikachu {
-  /* Ellipse 10 */
-  position: absolute;
-  width: 206px;
-  height: 206px;
-  left: 463px;
-  top: 139px;
-}
+/* Cambiar tamaño automatico al ser menor a 768 de largo */
 
 @media only screen and (max-width: 768px) {
   .subHeader {
