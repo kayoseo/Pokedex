@@ -25,7 +25,7 @@
   
     color: #353535;
   }
-  p {
+  .subHeader {
     width: 570px !important;
     position: absolute;
     height: 54px;
