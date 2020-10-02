@@ -1,54 +1,47 @@
+
 <div id="list-component" style="max-width:570px">
     <ModalComponent v-if="dialog" dialog="dialog" :selectPokemon="selectPokemon" v-on:close="closeDialog">
     </ModalComponent>
-    <img v-if="!pokemons" src="../../assets/images/Loader.png" alt="loading">
-    <div v-if="!emptyList">
-        <p class="Uh-oh">Uh-oh!</p>
-        <p class="sub-header"> You look lost on your journey!</p>
-    </div>
-
-    <!-- <div class="list">
-        <div>
-            <v-data-table :headers="headers" :items="pokemons.results" item-key="name" class="elevation-1"
-                :search="search" :custom-filter="filterOnlyCapsText">
-                <template v-slot:item="row">
-                    <tr>
-                        <td>{{row.item.name}}</td>
-                        <td>
 
 
-                            <v-icon mdi-spin @click="onButtonClick(row.item)">mdi-star-outline</v-icon>
-
-                        </td>
-                    </tr>
-                </template>
+    <img class="loadPoke" v-if="loading" src="../../assets/images/Loader.png" alt="loading">
 
 
-
-
-
-            </v-data-table>
-        </div>
-    </div> -->
-    <v-toolbar>
+   <div v-if="!loading">
+    <v-toolbar style="margin-bottom: 20px;">
         <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
         </v-text-field>
     </v-toolbar>
-    <v-card class="mx-auto" max-width="570">
+    <div style="background: #E5E5E5!important"  v-if="visiblePages.length===0" class="mx-auto" max-width="570">
+        <div >
+            <p class="Uh-oh">Uh-oh!</p>
+            <p class="sub-header"> You look lost on your journey!</p>
+            <div class="text-center">
+                <!-- Al presionar el boton limpiar la busqueda -->
+                <button class="btn-GoBackHome" @click="search=''">
+                  Go back home
+                </button>
+              </div>
+        </div>
+    </div>
+    <v-card v-if="visiblePages.length!=0"  class="mx-auto" max-width="570">
 
 
+       
 
-
-        <v-list two-line>
-            <v-list-item-group>
-                <template v-for="(item, index) in visiblePages">
+        <v-list  two-line>
+           
+            <v-list-item-group >
+              
+                <!--  Mostrar todos los pokemon -->
+                <template  v-for="(item, index) in visiblePages">
                     <v-list-item :key="item.name">
                         <template>
 
                             <v-list-item-content>
-                                <v-list-item-title v-on:click="openDialog(item.name)" >
+                                <v-list-item-title v-on:click="openDialog(item.name)">
                                     <!-- Convierto el primer Caracter en mayuscular -->
-                                {{item.name | upperFirst}}
+                                    {{item.name | upperFirst}}
                                 </v-list-item-title>
 
 
@@ -57,7 +50,8 @@
                             <v-list-item-action>
 
 
-                                <v-icon v-on:click="addFavorite(item.name)" v-if="!isFavorite(item.name)" color="#BFBFBF" >
+                                <v-icon v-on:click="addFavorite(item.name)" v-if="!isFavorite(item.name)"
+                                    color="#BFBFBF">
                                     mdi-star
                                 </v-icon>
 
@@ -71,14 +65,58 @@
 
                 </template>
 
+                <!-- Mostrar favoritos -->
+                <!-- <template v-if="!viewFavorite" v-for="(item, index) in favorites ">
+                    <v-list-item :key="item">
+                        <template>
+
+                            <v-list-item-content>
+                                <v-list-item-title v-on:click="openDialog(item)">
+                                   
+                                    {{item.name | upperFirst}}
+                                </v-list-item-title>
+
+
+                            </v-list-item-content>
+
+                            <v-list-item-action>
+
+
+                                <v-icon v-on:click="addFavorite(item)" v-if="!isFavorite(item)"
+                                    color="#BFBFBF">
+                                    mdi-star
+                                </v-icon>
+
+                                <v-icon v-on:click="removeFavorite(item.name)" v-else color="#ECA539">
+                                    mdi-star
+                                </v-icon>
+                            </v-list-item-action>
+                        </template>
+                    </v-list-item>
+
+
+                </template> -->
+
             </v-list-item-group>
 
         </v-list>
 
         <div class="text-center">
-            <v-pagination v-model="page" :length="Math.ceil(pokemons.length/perPage)" circle></v-pagination>
+            <v-pagination v-model="page"  :length="Math.ceil(dataList.length/perPage)" circle></v-pagination>
         </div>
-    </v-card>
-    
 
+        <v-row  class="actionTabs" justify="space-around">
+            <button @click="changeToAll()" class="btn" v-bind:class="{ 'btn-active': viewAll
+      , 'btn-inactive': !viewAll }">
+                <v-icon color="#FFFFFF">mdi-format-list-bulleted</v-icon> All
+            </button>
+            <button @click="changeToFavorite()" class="btn" v-bind:class="{ 'btn-active': !viewAll
+      , 'btn-inactive': viewAll}">
+                <v-icon color="#FFFFFF">mdi-star</v-icon> Favorites
+            </button>
+        </v-row>
+
+    </v-card>
+
+</div>
 </div>

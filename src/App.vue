@@ -30,4 +30,7 @@ export default {
   width: 75%;
   margin: 0px auto;
 }
+body{
+  background: #E5E5E5!important;
+}
 </style>

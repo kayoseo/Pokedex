@@ -11,17 +11,22 @@ export default {
     console.log(this.selectPokemon);
     this.getPokemon(this.selectPokemon);
     if (localStorage.getItem("favorite")) {
-      this.favorite = JSON.parse(localStorage.getItem("favorite"));
-      console.log("favoritos", this.favorite);
+      this.favorites = JSON.parse(localStorage.getItem("favorite"));
+      console.log("favoritos", this.favorites);
     } else {
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
     }
+  },
+  filters:{
+     upperFirst: function (value) {
+      return value.replace(/^\w/, (c) => c.toUpperCase());
+    },
   },
   data() {
     return {
       openDialog: false,
       pokemon: [],
-      favorite: [],
+      favorites: [],
       copyPokemon: "hola",
     };
   },
@@ -35,10 +40,6 @@ export default {
         .then((res) => {
           console.log("Informacion del pokemon", res.data);
           this.pokemon = res.data;
-          //convierto primer caracter del nombre a mayuscula
-          this.pokemon.name = this.pokemon.name.replace(/^\w/, (c) =>
-            c.toUpperCase()
-          );
           //Obtengo todos los tipos y los concateno en un array
           var types = "";
           //Concateno todos los tipos, le agrego la coma y transformo a mayuscula
@@ -57,26 +58,30 @@ export default {
         });
     },
     addFavorite(name) {
-      this.favorite.push(name);
-
+      this.favorites.push({ name: name });
       localStorage.removeItem("favorite");
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
 
       this.$forceUpdate();
     },
     removeFavorite(name) {
       //elimino un elemento de los favoritos
-      this.favorite.splice(this.favorite.indexOf(name), 1);
+      var indiceDelete = -1;
+      this.favorites.map((x, index) => {
+        if (x.name === name) {
+          indiceDelete = index;
+        }
+      });
+       this.favorites.splice(indiceDelete, 1);  
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
-      /* this.favorite[index] = false; */
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
+      this.$forceUpdate();
     },
-    isFavorite(value) {
-      console.log(this.favorite.filter((name) => name === value).length);
-      if (this.favorite.filter((name) => name === value).length === 0) {
+     isFavorite(value) {
+      if (this.favorites.filter((name) => name.name === value).length === 0) {
         return false;
       } else {
         return true;
