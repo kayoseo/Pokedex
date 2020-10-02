@@ -3,9 +3,13 @@
 import Axios from "axios";
 import ModalComponent from "../ModalComponent/ModalComponent";
 
+
+
+
 export default {
   name: "ListComponent",
   mounted() {
+   
     this.getPokemonList();
     this.emptyList = true;
     if (localStorage.getItem("favorite")) {
@@ -76,6 +80,7 @@ export default {
     closeDialog() {
       this.favorite = JSON.parse(localStorage.getItem("favorite"));
       this.dialog = false;
+
     },
     addFavorite(name) {
       this.favorite.push(name);
