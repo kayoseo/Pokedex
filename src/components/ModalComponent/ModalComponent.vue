@@ -1,6 +1,8 @@
 <template src="./ModalComponent.html"></template>
 <script>
 import Axios from "axios";
+import copy from "copy-to-clipboard";
+
 export default {
   name: "ModalComponent",
   props: ["dialog", "selectPokemon"],
@@ -8,36 +10,25 @@ export default {
     this.openDialog = this.dialog;
     console.log(this.selectPokemon);
     this.getPokemon(this.selectPokemon);
-      if (localStorage.getItem("favorite")) {
-      this.favorite = JSON.parse(localStorage.getItem("favorite"));
-      console.log("favoritos", this.favorite);
+    if (localStorage.getItem("favorite")) {
+      this.favorites = JSON.parse(localStorage.getItem("favorite"));
+      console.log("favoritos", this.favorites);
     } else {
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
     }
+  },
+  filters:{
+     upperFirst: function (value) {
+      return value.replace(/^\w/, (c) => c.toUpperCase());
+    },
   },
   data() {
     return {
       openDialog: false,
       pokemon: [],
-      favorite: [],
+      favorites: [],
+      copyPokemon: "hola",
     };
-  },
-  filters: {
-    upperFirst: function (value) {
-      return value.replace(/^\w/, (c) => c.toUpperCase());
-    },
-    //Obtener todos los tipos y retornar en el formato deseado
-    types: function (value) {
-      var types = "";
-      //Concateno todos los tipos, le agrego la coma y transformo a mayuscula
-      //el primer caracter
-      value.map((type) => {
-        types =
-          types + type.type.name.replace(/^\w/, (c) => c.toUpperCase()) + ", ";
-      });
-      //elimino el espacio y la coma final
-      return types.slice(0, types.length - 2);
-    },
   },
   methods: {
     closeDialog() {
@@ -49,36 +40,63 @@ export default {
         .then((res) => {
           console.log("Informacion del pokemon", res.data);
           this.pokemon = res.data;
+          //Obtengo todos los tipos y los concateno en un array
+          var types = "";
+          //Concateno todos los tipos, le agrego la coma y transformo a mayuscula
+          //el primer caracter
+          this.pokemon.types.map((type) => {
+            types =
+              types +
+              type.type.name.replace(/^\w/, (c) => c.toUpperCase()) +
+              ", ";
+          });
+          //elimino el espacio y la coma final
+          this.pokemon.types = types.slice(0, types.length - 2);
         })
         .catch((error) => {
           console.log(error);
         });
     },
     addFavorite(name) {
-      this.favorite.push(name);
-
+      this.favorites.push({ name: name });
       localStorage.removeItem("favorite");
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
 
       this.$forceUpdate();
     },
     removeFavorite(name) {
       //elimino un elemento de los favoritos
-      this.favorite.splice(this.favorite.indexOf(name), 1);
+      var indiceDelete = -1;
+      this.favorites.map((x, index) => {
+        if (x.name === name) {
+          indiceDelete = index;
+        }
+      });
+       this.favorites.splice(indiceDelete, 1);  
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
-      /* this.favorite[index] = false; */
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
+      this.$forceUpdate();
     },
-    isFavorite(value) {
-      console.log(this.favorite.filter((name) => name === value).length);
-      if (this.favorite.filter((name) => name === value).length === 0) {
+     isFavorite(value) {
+      if (this.favorites.filter((name) => name.name === value).length === 0) {
         return false;
       } else {
         return true;
       }
+    },
+
+    doCopy: function () {
+      var valor =
+        "" +
+        this.pokemon.name +
+        ", Weight: " +
+        this.pokemon.weight+ ", Height: " +
+        this.pokemon.height+", Types: "+ this.pokemon.types;
+      //this.upperFirst(this.pokemon.name)  +", Weight: "+this.pokemon.weight
+      copy(valor);
     },
   },
 };
@@ -136,6 +154,10 @@ p {
 
   color: #ffffff !important;
 }
+
+.btn-share:hover{
+   background: #C00E20 !important;
+}
 .v-card__actions {
   padding: 0px 30px 20px 20px !important;
 }
@@ -148,14 +170,12 @@ p {
 b {
   font-weight: 700 !important;
 }
-.btn-close{
-    position: absolute !important;
-    top: 0px !important;
-    margin: 10px !important;
-    
+.btn-close {
+  position: absolute !important;
+  top: 0px !important;
+  margin: 10px !important;
 }
-.btn-close:hover{
-    cursor:pointer;
-    
+.btn-close:hover {
+  cursor: pointer;
 }
 </style>

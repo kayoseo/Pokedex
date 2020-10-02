@@ -1,6 +1,6 @@
-
 <v-dialog v-model="dialog" max-width="570" max-height="506" >
-    <v-card v-if="pokemon">
+
+    <v-card v-if="pokemon.sprites.other">
 
         <v-card-title style="padding: 0 0 0 0; position: relative;">
            
@@ -11,22 +11,24 @@
           >
             <v-icon >mdi-close</v-icon>
           </v-btn>
-            <img class="pokemon" :src="pokemon.sprites.other['official-artwork'].front_default" alt="" srcset="">
+            <img v-if="pokemon.sprites.other['official-artwork'].front_default" class="pokemon" :src="pokemon.sprites.other['official-artwork'].front_default" >
 
         </v-card-title>
         <v-card-text style="height: 201px;">
             <v-container>
                 <div>
-           <p> <b> Name: </b>{{pokemon.name | upperFirst}}</p>
+           <p> <b> Name: </b>{{pokemon.name|upperFirst }}</p>
            <p> <b>Weight: </b>{{pokemon.weight}}</p>
            <p>  <b>Height: </b>{{pokemon.height}}</p>
-           <p>  <b>Types: </b>{{pokemon.types|types}}</p>
+           <p>  <b>Types: </b>{{pokemon.types}}</p>
         </div>
         </v-container>
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <button class="btn-share" @click="closeDialog()">
+            <button class="btn-share" 
+            @click="doCopy()"
+            >
                 Share to my friends
               </button>
         

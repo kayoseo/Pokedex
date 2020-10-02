@@ -1,5 +1,7 @@
 <template>
+
   <div id="app">
+  
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
       rel="stylesheet"
@@ -27,5 +29,8 @@ export default {
 .center {
   width: 75%;
   margin: 0px auto;
+}
+body{
+  background: #E5E5E5!important;
 }
 </style>

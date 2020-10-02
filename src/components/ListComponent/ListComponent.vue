@@ -9,10 +9,10 @@ export default {
     this.getPokemonList();
     this.emptyList = true;
     if (localStorage.getItem("favorite")) {
-      this.favorite = JSON.parse(localStorage.getItem("favorite"));
-      console.log("favoritos", this.favorite);
+      this.favorites = JSON.parse(localStorage.getItem("favorite"));
+      this.sortFavorite();
     } else {
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
     }
   },
   data() {
@@ -21,19 +21,26 @@ export default {
       search: "",
       emptyList: true,
       page: 1,
-      perPage: 10,
+      perPage: 7,
       dialog: false,
       active: "",
       selectPokemon: "",
-      favorite: [],
+      favorites: [],
+      viewAll: true,
+      dataList: [],
+      loading:false
     };
   },
   computed: {
     visiblePages() {
-      return this.pokemons.slice(
+    
+      return this.dataList.filter(data => {
+        return data.name.toLowerCase().includes(this.search.toLowerCase())
+      }).slice(
         (this.page - 1) * this.perPage,
         this.page * this.perPage
       );
+     
     },
   },
   filters: {
@@ -43,10 +50,12 @@ export default {
   },
   methods: {
     getPokemonList() {
+      this.loading=true;
       Axios.get("https://pokeapi.co/api/v2/pokemon")
         .then((res) => {
           this.pokemons = res.data.results;
-          console.log("lista de pokemon", this.pokemons);
+          this.dataList = this.pokemons;
+          this.loading=false;
         })
         .catch((error) => {
           console.log(error);
@@ -74,34 +83,58 @@ export default {
       this.dialog = true;
     },
     closeDialog() {
-      this.favorite = JSON.parse(localStorage.getItem("favorite"));
+      this.favorites = JSON.parse(localStorage.getItem("favorite"));
       this.dialog = false;
     },
     addFavorite(name) {
-      this.favorite.push(name);
-
+      this.favorites.push({ name: name });
+      this.sortFavorite();
       localStorage.removeItem("favorite");
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
 
       this.$forceUpdate();
     },
     removeFavorite(name) {
       //elimino un elemento de los favoritos
-      this.favorite.splice(this.favorite.indexOf(name), 1);
+      var indiceDelete = -1;
+      this.favorites.map((x, index) => {
+        if (x.name === name) {
+          indiceDelete = index;
+        }
+      });
+
+      this.favorites.splice(indiceDelete, 1);
+
+      this.sortFavorite();
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
-      localStorage.setItem("favorite", JSON.stringify(this.favorite));
+      localStorage.setItem("favorite", JSON.stringify(this.favorites));
       /* this.favorite[index] = false; */
     },
     isFavorite(value) {
-      console.log(this.favorite.filter((name) => name === value).length);
-      if (this.favorite.filter((name) => name === value).length === 0) {
+      if (this.favorites.filter((name) => name.name === value).length === 0) {
         return false;
       } else {
         return true;
       }
+    },
+    sortFavorite() {
+      this.favorites = this.favorites.sort((a, b) => a - b);
+    },
+
+    changeToAll() {
+      //cambio la clase de los botones de ALL y Favorite
+      this.viewAll = true;
+      this.dataList = this.pokemons;
+      this.visiblePages();
+    },
+    changeToFavorite() {
+      //cambio la clase de los botones de ALL y Favorite
+      this.viewAll = false;
+      this.dataList = this.favorites;
+      this.visiblePages();
     },
   },
   components: {
