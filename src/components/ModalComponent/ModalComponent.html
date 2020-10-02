@@ -1,11 +1,16 @@
 
-<v-dialog v-model="dialog" max-width="570" max-height="506" persistent>
+<v-dialog v-model="dialog" max-width="570" max-height="506" >
     <v-card v-if="pokemon">
 
         <v-card-title style="padding: 0 0 0 0; position: relative;">
-
+           
             <img class="backPokemon" src="../../assets/images/backPoke.png" alt="No disponible">
-
+            <v-btn class="btn-close"
+            icon
+            @click="closeDialog()"
+          >
+            <v-icon >mdi-close</v-icon>
+          </v-btn>
             <img class="pokemon" :src="pokemon.sprites.other['official-artwork'].front_default" alt="" srcset="">
 
         </v-card-title>
@@ -26,9 +31,13 @@
               </button>
         
 
-            <v-icon class="favorite" v-if="!active" color="#BFBFBF"> mdi-star-outline </v-icon>
+              <v-icon v-on:click="addFavorite(pokemon.name)" v-if="!isFavorite(pokemon.name)" color="#BFBFBF" >
+                mdi-star
+            </v-icon>
 
-            <v-icon class="favorite" v-else color="#ECA539"> mdi-star </v-icon>
+            <v-icon v-on:click="removeFavorite(pokemon.name)" v-else color="#ECA539">
+                mdi-star
+            </v-icon>
         </v-card-actions>
     </v-card>
 </v-dialog>

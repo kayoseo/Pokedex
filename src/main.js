@@ -12,6 +12,17 @@ Vue.use(VueRouter);
 
 const routes=Routes;
 
+const store=Vue.observable({
+  favorite:{
+    items:[],
+    add(item){
+      store.favorite.items.push(item)
+    },
+  },
+})
+
+Vue.prototype.$store=store;
+
 const router = new VueRouter({
   routes,
   mode: 'history'

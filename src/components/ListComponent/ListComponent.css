@@ -66,11 +66,7 @@ color: #353535;
 .v-dialog__container {
     display: unset; 
 }
-/* Evitar que se cree un espacio en blanco */
-v-app{
-    width: 0% !important;
-    height: 0% !important;
-}
+
 
 .v-list-item:hover{
     cursor: default

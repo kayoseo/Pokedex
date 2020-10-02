@@ -57,11 +57,11 @@
                             <v-list-item-action>
 
 
-                                <v-icon v-if="!active" color="#BFBFBF">
-                                    mdi-star-outline
+                                <v-icon v-on:click="addFavorite(item.name)" v-if="!isFavorite(item.name)" color="#BFBFBF" >
+                                    mdi-star
                                 </v-icon>
 
-                                <v-icon v-else color="#ECA539">
+                                <v-icon v-on:click="removeFavorite(item.name)" v-else color="#ECA539">
                                     mdi-star
                                 </v-icon>
                             </v-list-item-action>
@@ -80,6 +80,6 @@
         </div>
     </v-card>
 
-
+{{$store.favorite.items}}
 
 </div>
