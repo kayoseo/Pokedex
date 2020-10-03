@@ -1,24 +1,7 @@
-# pokedex
+# Pokedex
 
-## Project setup
-```
-npm install
-```
+## Versiones utilizadas
+`vuetify`: ^2.2.11
+`axios`: ^0.20.0
+`copy-to-clipboard`: ^3.3.1
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
