@@ -131,7 +131,12 @@ export default {
       //Modifico la data que se muestra en el listado
       this.dataList = this.favorites;
     },
+    GoBackHome() {
+      this.search = "";
+      //cambio la clase de los botones de ALL a "activo"
+    },
   },
+
   components: {
     ModalComponent,
   },
