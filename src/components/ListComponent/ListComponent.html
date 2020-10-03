@@ -21,13 +21,13 @@
         <!--   Si al realizar la busqueda, esta no arroja ningun pokemon,
          se muestra un mensaje con el boton para eliminar la busqueda 
          y volver a cargar todos los pokemon  -->
-        <div style="background: #E5E5E5!important" v-if="visiblePages.length===0" class="mx-auto" max-width="570">
+        <div style="background: #E5E5E5!important" v-if="visiblePages.length===0&&search!=''" class="mx-auto" max-width="570">
             <div>
                 <p class="Uh-oh">Uh-oh!</p>
                 <p class="sub-header"> You look lost on your journey!</p>
                 <div class="text-center">
                     <!-- Al presionar el boton limpiar la busqueda -->
-                    <button class="btn-GoBackHome" @click="search=''">
+                    <button class="btn-GoBackHome" @click="goBackHome()">
                         Go back home
                     </button>
                 </div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Lista de todos los pokemon o favoritos  -->
-        <v-card v-if="visiblePages.length!=0" max-width="570">
+        <v-card v-if="visiblePages.length!=0||search===''" max-width="570">
             <v-list two-line>
                 <v-list-item-group>
                     <!--  Mostrar todos los pokemon -->
