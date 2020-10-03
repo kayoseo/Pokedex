@@ -1,11 +1,13 @@
-#list-component{
+#list-component {
     position: relative;
     margin: 0px auto;
-  
     background: #f9f9f9;
     max-width: 570px;
 }
-.loadPoke{
+
+/* Loading de pokebola */
+
+.loadPoke {
     width: 106px;
     height: 106px;
     background: #E5E5E5;
@@ -14,93 +16,84 @@
     left: 200px;
     top: 200px;
     /* efecto girando */
-    animation-name: spin ;
-    animation-duration: 5000ms ;
-    animation-iteration-count: infinite ;
-    animation-timing-function: linear ; 
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
+
+/* Animacion girando */
+
 @keyframes spin {
     from {
-        transform:rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-        transform:rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
-.Uh-oh{
-/* Uh-oh! */
-width: 570px;
-height: 43px;
-left: 291px;
-top: 135px;
+/* Titulo al no encontrar busqueda */
 
-font-family: Lato !important;
-font-style: normal !important;
-font-weight: 700 !important;
-font-size: 36px !important;
-line-height: 43px !important;
-align-items: center !important;
-text-align: center !important;
-margin:0 auto !important;
-color: #353535;
+.Uh-oh {
+    width: auto;
+    height: 43px;
+    top: 135px;
+    font-family: Lato !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 36px !important;
+    line-height: 43px !important;
+    text-align: center !important;
+    color: #353535;
 }
 
-.sub-header{
-width: 570px;
-height: 30px;
-left: 291px;
-top: 188px;
+/* Subtitulo al no encontrar busqueda */
 
-font-family: Lato;
-font-style: normal;
-font-weight: 500;
-font-size: 20px;
-line-height: 150%;
-/* identical to box height, or 30px */
-
-text-align: center;
-
-color: #5E5E5E;
+.sub-header {
+    width: auto;
+    height: 30px;
+    top: 188px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+    color: #5E5E5E;
 }
-.list{
-    margin: 0px auto;
-}
-th{
-    border-bottom: none;
+/* Cambiar a curso por defecto al estar sobre el item que contiene 
+el nombre para que el usuario sepa que tiene que presionar
+sobre el nombre */
+.v-list-item:hover {
+    cursor: default
 }
 
-.v-list-item__title{
-   /*  font-family: Lato !important;
-    font-style: normal !important; */
+/* Nombre del pokemon */
+.v-list-item__title {
     font-weight: 500 !important;
     font-size: 22px;
-line-height: 26px;
-color: #353535;
+    line-height: 26px;
+    color: #353535;
     background: #FFFFFF !important;
 }
 
-.v-dialog__container {
-    display: unset; 
-}
-
-
-.v-list-item:hover{
-    cursor: default
-}
-.v-list-item__title:hover{
+/* Cambiar cursor al estar sobre el nombre para abrir modal */
+.v-list-item__title:hover {
     cursor: pointer
 }
+
+.v-dialog__container {
+    display: unset;
+} 
+
+/* Clase botones */
 .btn {
     margin: 8px 5px 8px 5px !important;
     width: 275px !important;
     height: 44px !important;
-  
-    
     border-radius: 60px !important;
-  
     /* Get started */
-  
     font-family: Lato !important;
     font-style: normal !important;
     font-weight: bold !important;
@@ -108,72 +101,53 @@ color: #353535;
     line-height: 22px !important;
     color: #ffffff !important;
     /* identical to box height */
-  
-   
-  }
-
-.btn-active{
-    background: #f22539 !important;
-  
 }
 
-.btn-inactive{
+.btn-active {
+    background: #f22539 !important;
+}
+
+.btn-inactive {
     background: #BFBFBF;
 }
 
-.v-pagination__item--active{
+/* Botones que separan por pagina los pokemones */
+.v-pagination__item--active {
     color: #fff;
     background-color: #1976d2 !important;
     border-color: #1976d2 !important;
 }
-.actionTabs{
+
+/* Contenedor de botones de "all" y "favorite" */
+.actionTabs {
     max-width: 570px;
     margin: 0px !important;
 }
 
-.btn-GoBackHome{
-    /* Go back home */
-
-
-position: static;
-width: 115px;
-height: 22px;
-left: 20px;
-top: 11px;
-
-font-family: Lato;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 22px;
-/* identical to box height */
-
-display: flex;
-text-align: center;
-
-color: #FFFFFF;
-    
-    /* Btn/Normal */
-
-
-/* Auto Layout */
-
-display: flex;
-flex-direction: row;
-padding: 11px 0px 0px 20px;
-
-margin:0 auto !important;
-width: 155px;
-height: 44px;
-left: 499px;
-top: 243px;
-
-background: #F22539;
-border-radius: 60px;
+/* Boton que se muestra al no encontrar nada en la busqueda */
+.btn-GoBackHome {
+    position: static;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    text-align: center;
+    color: #FFFFFF;
+    flex-direction: row;
+    padding: 11px 0px 0px 20px;
+    margin: 0 auto !important;
+    width: 155px;
+    height: 44px;
+    left: 499px;
+    top: 243px;
+    background: #F22539;
+    border-radius: 60px;
 }
-
- @media only screen and (max-width: 775px) {
-   .btn{
-    width: 45% !important;
-   }
-  } 
+/* Cambiar botones "all" y "favorite" */
+@media only screen and (max-width: 775px) {
+    .btn {
+        width: 45% !important;
+    }
+}

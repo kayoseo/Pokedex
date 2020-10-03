@@ -7,8 +7,6 @@ export default {
   name: "ModalComponent",
   props: ["dialog", "selectPokemon"],
   mounted() {
-    this.openDialog = this.dialog;
-    console.log(this.selectPokemon);
     this.getPokemon(this.selectPokemon);
     if (localStorage.getItem("favorite")) {
       this.favorites = JSON.parse(localStorage.getItem("favorite"));
@@ -17,17 +15,15 @@ export default {
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
     }
   },
-  filters:{
-     upperFirst: function (value) {
+  filters: {
+    upperFirst: function (value) {
       return value.replace(/^\w/, (c) => c.toUpperCase());
     },
   },
   data() {
     return {
-      openDialog: false,
       pokemon: [],
       favorites: [],
-      copyPokemon: "hola",
     };
   },
   methods: {
@@ -59,123 +55,58 @@ export default {
     },
     addFavorite(name) {
       this.favorites.push({ name: name });
+      //Para evitar errores primero se eliminan del localstorage
+      //para posteriormente crearlo de nuevo actualizado
       localStorage.removeItem("favorite");
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
-
+      // Para garantizar que la vista este atenta a los cambios de favoritos
       this.$forceUpdate();
     },
     removeFavorite(name) {
       //elimino un elemento de los favoritos
       var indiceDelete = -1;
+      /* Se busca el indice del cual se debe eliminar 
+      el favorito */
       this.favorites.map((x, index) => {
         if (x.name === name) {
           indiceDelete = index;
         }
       });
-       this.favorites.splice(indiceDelete, 1);  
+      //Se quita el favorito
+      this.favorites.splice(indiceDelete, 1);
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
       this.$forceUpdate();
     },
-     isFavorite(value) {
+    //Funcion para comprobar si el elemento mostrado es favorito
+    isFavorite(value) {
       if (this.favorites.filter((name) => name.name === value).length === 0) {
         return false;
       } else {
         return true;
       }
     },
-
+    //Funcion para copiar en el portapales
     doCopy: function () {
+      //concateno el nombre del pokemon y sus atributos en un string
       var valor =
         "" +
         this.pokemon.name +
         ", Weight: " +
-        this.pokemon.weight+ ", Height: " +
-        this.pokemon.height+", Types: "+ this.pokemon.types;
-      //this.upperFirst(this.pokemon.name)  +", Weight: "+this.pokemon.weight
+        this.pokemon.weight +
+        ", Height: " +
+        this.pokemon.height +
+        ", Types: " +
+        this.pokemon.types;
+      //Guardo el "valor" en el portapapeles
       copy(valor);
     },
   },
 };
 </script>
 
-<style >
-.pokemon {
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  left: 195px;
-}
-
-.backPokemon {
-  width: 570px;
-  height: 220px;
-  /* background: #F22539;
-  border: 2px solid #000000; */
-}
-.content {
-  width: 570px !important;
-}
-p {
-  font-family: Lato !important;
-  font-style: normal !important;
-  font-weight: 500 !important;
-  font-size: 18px !important;
-  line-height: 150% !important;
-  color: #5e5e5e !important;
-}
-.v-dialog__content {
-  background: rgba(0, 0, 0, 0.6);
-}
-.btn-share {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: flex-start !important;
-  padding: 11px 0px 0px 20px !important;
-
-  position: absolute !important;
-  width: 195px !important;
-  height: 44px !important;
-
-  background: #f22539 !important;
-  border-radius: 60px !important;
-
-  /* Get started */
-
-  font-family: Lato !important;
-  font-style: normal !important;
-  font-weight: bold !important;
-  font-size: 18px !important;
-  line-height: 22px !important;
-  /* identical to box height */
-
-  color: #ffffff !important;
-}
-
-.btn-share:hover{
-   background: #C00E20 !important;
-}
-.v-card__actions {
-  padding: 0px 30px 20px 20px !important;
-}
-
-.favorite {
-  width: 26px;
-  height: 26px;
-}
-
-b {
-  font-weight: 700 !important;
-}
-.btn-close {
-  position: absolute !important;
-  top: 0px !important;
-  margin: 10px !important;
-}
-.btn-close:hover {
-  cursor: pointer;
-}
+<style  src="./ModalComponent.css">
 </style>
