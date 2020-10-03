@@ -1,0 +1,83 @@
+#home-component {
+  position: relative;
+  background: #E5E5E5;
+  ;
+  margin: 0px auto;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+/* Imagen pikachu */
+
+.pikachu {
+  position: relative;
+  width: 250px;
+  height: 250px;
+}
+
+/* Welcome to Pokedex */
+
+.title {
+  position: inherit;
+  height: 31px !important;
+  font-family: Lato !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 26px !important;
+  line-height: 31px !important;
+  text-align: center !important;
+  color: #353535;
+}
+
+/* The digital encyclopedia created by
+ Professor Oak is an invaluable tool 
+ to Trainers in the Pokémon world. */
+
+.subHeader {
+  width: 570px !important;
+  position: inherit !important;
+  display: inline-flex !important;
+  height: 54px !important;
+  margin-top: 30px !important;
+  font-family: Lato !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  line-height: 150% !important;
+  /* or 27px */
+  text-align: center !important;
+  color: #5e5e5e !important;
+}
+
+/* Boton de rediccion a lista de pokemon */
+
+.btn-started {
+  /* Get started */
+  position: relative;
+  width: 131px;
+  height: 44px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  display: inline-flexbox;
+  color: #FFFFFF;
+  background: #f22539 !important;
+  border-radius: 60px !important;
+  margin-top: 51px !important;
+}
+
+/* Boton de rediccion al "presionarlo" */
+.btn-started:hover {
+  background: #C00E20 !important;
+}
+
+/* Cambiar tamaño automatico al ser menor a 768 de largo */
+
+@media only screen and (max-width: 768px) {
+  .subHeader {
+    width: auto !important;
+  }
+}

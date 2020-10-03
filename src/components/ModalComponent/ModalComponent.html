@@ -1,0 +1,44 @@
+<v-dialog v-model="dialog" max-width="570" max-height="506">
+
+    <v-card v-if="pokemon.sprites.other">
+
+        <!-- Imagen del pokemon -->
+        <v-card-title style="padding: 0 0 0 0; position: relative;">
+            <img class="backPokemon" src="../../assets/images/backPoke.png" alt="No disponible">
+            <!-- Boton cerrar modal -->
+            <v-btn class="btn-close" icon @click="closeDialog()">
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <img v-if="pokemon.sprites.other['official-artwork'].front_default" class="pokemon"
+                :src="pokemon.sprites.other['official-artwork'].front_default">
+
+        </v-card-title>
+        <!-- Atributos -->
+        <v-card-text style="height: 201px;">
+            <v-container>
+                <div>
+                    <p class="attribute"> <b> Name: </b>{{pokemon.name|upperFirst }}</p>
+                    <p class="attribute"> <b>Weight: </b>{{pokemon.weight}}</p>
+                    <p class="attribute"> <b>Height: </b>{{pokemon.height}}</p>
+                    <p class="attribute"> <b>Types: </b>{{pokemon.types}}</p>
+                </div>
+            </v-container>
+        </v-card-text>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <button class="btn-share" @click="doCopy()">
+                Share to my friends
+            </button>
+            <!--  Icono que representa que es favorito. Al presionarlo genera que dicho 
+                                    pokemon se elimine de favoritos -->
+            <v-icon v-on:click="addFavorite(pokemon.name)" v-if="!isFavorite(pokemon.name)" color="#BFBFBF">
+                mdi-star
+            </v-icon>
+            <!--  Icono que representa que NO esfavorito. Al presionarlo genera que dicho 
+                                    pokemon se agregue favoritos -->
+            <v-icon v-on:click="removeFavorite(pokemon.name)" v-else color="#ECA539">
+                mdi-star
+            </v-icon>
+        </v-card-actions>
+    </v-card>
+</v-dialog>
