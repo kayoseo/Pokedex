@@ -10,7 +10,6 @@ export default {
     this.getPokemon(this.selectPokemon);
     if (localStorage.getItem("favorite")) {
       this.favorites = JSON.parse(localStorage.getItem("favorite"));
-      console.log("favoritos", this.favorites);
     } else {
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
     }
@@ -34,7 +33,6 @@ export default {
     getPokemon(name) {
       Axios.get("https://pokeapi.co/api/v2/pokemon/" + name)
         .then((res) => {
-          console.log("Informacion del pokemon", res.data);
           this.pokemon = res.data;
           //Obtengo todos los tipos y los concateno en un array
           var types = "";

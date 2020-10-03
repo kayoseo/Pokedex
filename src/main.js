@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueClipboard from 'vue-clipboard2';
 import App from './App.vue'
 import VueRouter from 'vue-router';
 
@@ -7,11 +6,9 @@ import {Routes} from './routes';
 import vuetify from './plugins/vuetify';
 
 
-Vue.use(VueClipboard);
 
-import Clipboard from 'v-clipboard'
- 
-Vue.use(Clipboard)
+
+
 
 
 Vue.config.productionTip = false
