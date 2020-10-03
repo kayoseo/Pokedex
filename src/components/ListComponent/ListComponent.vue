@@ -7,7 +7,6 @@ export default {
   name: "ListComponent",
   mounted() {
     this.getPokemonList();
-    this.emptyList = true;
     if (localStorage.getItem("favorite")) {
       this.favorites = JSON.parse(localStorage.getItem("favorite"));
       this.sortFavorite();
@@ -19,11 +18,11 @@ export default {
     return {
       pokemons: [],
       search: "",
-      emptyList: true,
       page: 1,
+      //Cantidad de pokemones que se mostrara en cada pagina
       perPage: 7,
       dialog: false,
-      active: "",
+      //Pokemon seleccionado para mostrar en el modal
       selectPokemon: "",
       favorites: [],
       viewAll: true,
