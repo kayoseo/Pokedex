@@ -58,50 +58,41 @@ export default {
           console.log(error);
         });
     },
-    getPokemon(name) {
-      Axios.get("https://pokeapi.co/api/v2/pokemon/" + name)
-        .then((res) => {
-          console.log("lista de pokemon", res);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    filterOnlyCapsText(value, search) {
-      return (
-        value != null &&
-        search != null &&
-        typeof value === "string" &&
-        value.toString().toLocaleUpperCase().indexOf(search) !== -1
-      );
-    },
+    //Abre el modal
     openDialog(name) {
       this.selectPokemon = name;
       this.dialog = true;
     },
+    /* Funcion emitida desde el componente hijo(ModalComponent)
+    para actualizar los favoritos con respecto al localStorage */
     closeDialog() {
       this.favorites = JSON.parse(localStorage.getItem("favorite"));
       this.dialog = false;
     },
+    /* Agregar favoritos */
     addFavorite(name) {
       this.favorites.push({ name: name });
       this.sortFavorite();
+      //Para evitar errores primero se eliminan del localstorage
+      //para posteriormente crearlo de nuevo actualizado
       localStorage.removeItem("favorite");
       //localStorage solo soporta strings. Uso JSON.stringify() para convertir
       //el objeto a string
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
-
+      // Para garantizar que la vista este atenta a los cambios de favoritos
       this.$forceUpdate();
     },
     removeFavorite(name) {
       //elimino un elemento de los favoritos
       var indiceDelete = -1;
+      /* Se busca el indice del cual se debe eliminar 
+      el favorito */
       this.favorites.map((x, index) => {
         if (x.name === name) {
           indiceDelete = index;
         }
       });
-
+      //Se quita el favorito
       this.favorites.splice(indiceDelete, 1);
 
       this.sortFavorite();
@@ -110,6 +101,7 @@ export default {
       localStorage.setItem("favorite", JSON.stringify(this.favorites));
       /* this.favorite[index] = false; */
     },
+    //Funcion para comprobar si el elemento mostrado es favorito
     isFavorite(value) {
       if (this.favorites.filter((name) => name.name === value).length === 0) {
         return false;
@@ -120,26 +112,25 @@ export default {
     sortFavorite() {
       this.favorites = this.favorites.sort((a, b) => a - b);
     },
-
+    //Cambiar dataList mostrada para ver todos los pokemon
     changeToAll() {
       //Limpiar campo de busqueda al cambiar de vista
       this.search = "";
 
-      //cambio la clase de los botones de ALL y Favorite
+      //cambio la clase de los botones de ALL a "activo"
       this.viewAll = true;
-
+      //Modifico la data que se muestra en el listado
       this.dataList = this.pokemons;
-
-      /* this.visiblePages(); */
     },
+    //Cambiar dataList mostrada para ver solo los favoritos
     changeToFavorite() {
       //Limpiar campo de busqueda al cambiar de vista
       this.search = "";
 
-      //cambio la clase de los botones de ALL y Favorite
+      //cambio la clase del boton favorite a "activo"
       this.viewAll = false;
+      //Modifico la data que se muestra en el listado
       this.dataList = this.favorites;
-      /* this.visiblePages(); */
     },
   },
   components: {
