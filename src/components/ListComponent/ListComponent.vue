@@ -115,7 +115,8 @@ export default {
     changeToAll() {
       //Limpiar campo de busqueda al cambiar de vista
       this.search = "";
-
+      //Para que comience a mostrar desde la pagina 1
+      this.page = 1;
       //cambio la clase de los botones de ALL a "activo"
       this.viewAll = true;
       //Modifico la data que se muestra en el listado
@@ -125,7 +126,8 @@ export default {
     changeToFavorite() {
       //Limpiar campo de busqueda al cambiar de vista
       this.search = "";
-
+      //Para que comience a mostrar desde la pagina 1
+      this.page = 1;
       //cambio la clase del boton favorite a "activo"
       this.viewAll = false;
       //Modifico la data que se muestra en el listado
